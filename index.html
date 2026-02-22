@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tharushi Suraweera · Network Engineer & Administrator</title>
+  <!-- SEO meta -->
+  <meta name="description" content="Portfolio of Tharushi Suraweera – final-year ICT undergraduate specializing in Networking, Cloud Computing & AI Research.">
+  <meta name="keywords" content="Network Engineer, Network Administrator, Cloud Intern, AI Research, AWS, Python, Cisco">
+  <meta name="author" content="Tharushi Suraweera">
+  <!-- Tailwind + custom layer (via CDN + extra classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS (scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Inter) for modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    body { transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
+    /* glassmorphism reusable */
+    .glass-card {
+      background: rgba(20, 30, 45, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(100, 150, 255, 0.15);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 180, 255, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(70, 130, 255, 0.3);
+    }
+    /* typing animation */
+    .typed-cursor { font-weight: 300; animation: blink 1s infinite; }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+    /* particle canvas behind hero */
+    #particle-canvas { position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+    /* progress bar animation */
+    .skill-progress { height: 8px; border-radius: 20px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .skill-fill { height:100%; background: linear-gradient(90deg, #3b82f6, #a855f7); width:0%; transition: width 1.5s ease; }
+    /* dark/light mode variables (default dark) */
+    body.light-mode { background-color: #f8fafc; color: #0f172a; }
+    body.light-mode .glass-card { background: rgba(255,255,255,0.7); border-color: #cbd5e1; }
+    body.light-mode .skill-fill { background: linear-gradient(90deg, #2563eb, #7e22ce); }
+    body { background-color: #0b0f1a; color: #e2e8f0; }
+    /* sticky nav */
+    .sticky-nav { position: sticky; top:0; z-index:100; backdrop-filter: blur(12px); background: rgba(10, 15, 30, 0.8); }
+    body.light-mode .sticky-nav { background: rgba(240, 244, 250, 0.8); }
+    /* timeline style */
+    .timeline-item { border-left: 2px solid #3b82f6; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .light-mode .timeline-item { border-left-color: #2563eb; }
+    /* interactive hover badges */
+    .skill-badge { transition: all 0.15s; background: rgba(45, 55, 75, 0.6); }
+    .skill-badge:hover { background: #2563eb; color: white; transform: scale(1.05); }
+    body.light-mode .skill-badge { background: #e2e8f0; color:#0f172a; }
+    body.light-mode .skill-badge:hover { background: #2563eb; color: white; }
+    /* footer social */
+    .social-icon { transition: 0.2s; }
+    .social-icon:hover { color: #3b82f6; transform: translateY(-3px); }
+    /* form validation style */
+    .error-msg { color: #f87171; font-size: 0.8rem; margin-top: 0.2rem; display: none; }
+    input:invalid + .error-msg { display: block; }
+    /* profile image styles */
+    .profile-img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      animation: morph 8s ease-in-out infinite;
+      border: 3px solid rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+    @keyframes morph {
+      0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+      50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+      75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+      100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    }
+    .profile-container {
+      position: relative;
+      display: inline-block;
+    }
+    .profile-container::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, #3b82f6, #a855f7, #3b82f6);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.3;
+      z-index: -1;
+      animation: morph 8s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav py-4 px-6 md:px-12 flex justify-between items-center border-b border-blue-900/30">
+  <a href="#" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">TS.</a>
+  <div class="space-x-6 hidden md:flex text-sm font-medium">
+    <a href="#about" class="hover:text-blue-400 transition">About</a>
+    <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+    <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
+    <a href="#research" class="hover:text-blue-400 transition">Research</a>
+    <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+  </div>
+  <div class="flex items-center gap-3">
+    <!-- Dark/Light toggle -->
+    <button id="themeToggle" class="p-2 rounded-full bg-gray-800/50 text-blue-300 hover:bg-gray-700"><i class="fas fa-sun" id="themeIcon"></i></button>
+    <button class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- Hero Section with particle canvas -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden px-4" id="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="relative z-10 text-center max-w-4xl" data-aos="fade-up">
+    <span class="text-blue-400 text-lg font-medium">👋 Hello, I'm</span>
+    <h1 class="text-5xl md:text-7xl font-extrabold mt-2 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">Tharushi Suraweera</h1>
+    <div class="h-12 mt-4 text-xl md:text-3xl text-gray-300">
+      <span class="font-light">I'm a </span><span id="typing" class="font-semibold text-blue-300"></span><span class="typed-cursor">|</span>
+    </div>
+    <p class="text-gray-400 max-w-xl mx-auto mt-6">Final-year ICT Undergraduate · Networking · Cloud · AI Research</p>
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <a href="Tharushi Suraweera.pdf" class="px-7 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-medium transition shadow-lg shadow-blue-600/30"><i class="fas fa-download mr-2"></i>Download CV</a>
+      <a href="#projects" class="px-7 py-3 glass-card border border-blue-500/30 hover:bg-blue-900/30 rounded-full font-medium">View Projects</a>
+      <a href="#contact" class="px-7 py-3 glass-card border border-purple-500/30 hover:bg-purple-900/30 rounded-full font-medium">Contact Me</a>
+    </div>
+  </div>
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"><i class="fas fa-chevron-down text-blue-400 text-2xl"></i></div>
+</section>
+
+<!-- About Me with Profile Photo -->
+<section class="py-24 px-6 md:px-20 max-w-6xl mx-auto" id="about">
+  <h2 class="text-4xl font-bold mb-12" data-aos="fade-right"><span class="border-b-4 border-blue-500 pb-2">About Me</span></h2>
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="flex justify-center md:justify-start" data-aos="fade-right">
+      <div class="profile-container">
+        <!-- Replace the src with your actual photo path -->
+        <img src="profile.jpg" 
+             alt="Tharushi Suraweera" 
+             class="profile-img">
+      </div>
+    </div>
+    <div data-aos="fade-left">
+      <p class="text-lg leading-relaxed text-gray-300">
+        I am a final-year undergraduate student in the Department of Information Communication Technology at the Faculty of Technology, Rajarata University of Sri Lanka. Open to internships, with a strong foundation in networking principles, including design and configuration, software testing (manual & automation), and cloud technologies (AWS, Azure). Passionate about learning, problem-solving, and gaining hands-on experience in IT infrastructure and software quality. Dedicated to contributing to innovative projects and expanding my technical expertise.
+      </p>
+      <div class="mt-8 space-y-5">
+        <!-- Animated skill progress bars - Python eka ain kala -->
+        <div><div class="flex justify-between"><span>Networking (Cisco, subnetting)</span><span>90%</span></div><div class="skill-progress"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div><div class="flex justify-between"><span>AWS / Cloud</span><span>80%</span></div><div class="skill-progress"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div><div class="flex justify-between"><span>AI/ML research</span><span>75%</span></div><div class="skill-progress"><div class="skill-fill" style="width:75%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical Skills (categorized) -->
+<section class="py-20 px-6 md:px-20 bg-[#0a0e17] light-mode:bg-slate-100" id="skills">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12" data-aos="fade-right"><span class="border-b-4 border-purple-500 pb-2">Technical Skills</span></h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Networking -->
+      <div class="glass-card p-6" data-aos="zoom-in"><h3 class="text-xl font-semibold mb-4"><i class="fas fa-server text-blue-400 mr-2"></i>Networking</h3>
+        <div class="flex flex-wrap gap-2"> <span class="skill-badge px-3 py-1 rounded-full text-sm">Subnetting</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Cisco Packet Tracer</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Network Config</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">VLANs</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Routing</span> </div>
+      </div>
+      <!-- Programming -->
+      <div class="glass-card p-6" data-aos="zoom-in" data-aos-delay="100"><h3 class="text-xl font-semibold mb-4"><i class="fas fa-code text-purple-400 mr-2"></i>Programming</h3>
+        <div class="flex flex-wrap gap-2"> <span class="skill-badge px-3 py-1 rounded-full text-sm">Python</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Java</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">C</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">PHP</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">JavaScript</span> </div>
+      </div>
+      <!-- Cloud & Tools -->
+      <div class="glass-card p-6" data-aos="zoom-in" data-aos-delay="200"><h3 class="text-xl font-semibold mb-4"><i class="fas fa-cloud text-blue-300 mr-2"></i>Cloud & Tools</h3>
+        <div class="flex flex-wrap gap-2"> <span class="skill-badge px-3 py-1 rounded-full text-sm">AWS</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Azure</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Docker</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">MySQL</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">VS Code</span> <span class="skill-badge px-3 py-1 rounded-full text-sm">Figma</span> </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="py-24 px-6 md:px-20 max-w-7xl mx-auto" id="projects">
+  <h2 class="text-4xl font-bold mb-12" data-aos="fade-right"><span class="border-b-4 border-blue-500 pb-2">Projects</span></h2>
+  <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    <!-- Card 1 - AI/ML Football Analysis System -->
+    <div class="glass-card p-6 group" data-aos="flip-left">
+      <h3 class="text-xl font-bold text-blue-400">AI/ML Football Analysis System <span class="text-sm font-normal text-gray-400 ml-2">(2025)</span></h3>
+      <p class="text-sm text-gray-300 mt-3 leading-relaxed">
+        Developed an AI-based system to detect and track players and ball from match videos, generating heatmaps and possession analytics for performance analysis.
+      </p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <span class="text-xs bg-blue-900/50 px-3 py-1.5 rounded-full border border-blue-800">Python</span>
+        <span class="text-xs bg-purple-900/50 px-3 py-1.5 rounded-full border border-purple-800">OpenCV</span>
+        <span class="text-xs bg-blue-900/50 px-3 py-1.5 rounded-full border border-blue-800">YOLO</span>
+      </div>
+    </div>
+    
+    <!-- Card 2 - Hotel Management System -->
+    <div class="glass-card p-6 group" data-aos="flip-left" data-aos-delay="100">
+      <h3 class="text-xl font-bold text-blue-400">Hotel Management System <span class="text-sm font-normal text-gray-400 ml-2">(2023)</span></h3>
+      <p class="text-sm text-gray-300 mt-3 leading-relaxed">
+        Developed a web-based kitchen management system to track ingredients, manage inventory, and monitor expiration dates efficiently. Designed the platform to improve organization, reduce food waste, and support effective resource management in culinary environments.
+      </p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <span class="text-xs bg-blue-900/50 px-3 py-1.5 rounded-full border border-blue-800">PHP</span>
+        <span class="text-xs bg-purple-900/50 px-3 py-1.5 rounded-full border border-purple-800">MySQL</span>
+        <span class="text-xs bg-blue-900/50 px-3 py-1.5 rounded-full border border-blue-800">JavaScript</span>
+        <span class="text-xs bg-purple-900/50 px-3 py-1.5 rounded-full border border-purple-800">HTML/CSS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Research Section -->
+<section class="px-6 md:px-20 max-w-4xl mx-auto mb-20" id="research">
+  <div class="glass-card p-7" data-aos="fade-up">
+    <h2 class="text-3xl font-bold mb-4"><i class="fas fa-microscope text-purple-400 mr-2"></i>Research</h2>
+    <h3 class="text-xl font-semibold text-blue-400">An Explainable AI-Based Machine Learning Approach for Multi-Level Heart Attack Severity Prediction (Ongoing)</h3>
+    <p class="text-gray-300 mt-3 text-sm leading-relaxed">
+      Developed a machine learning model to predict heart attack severity levels and used SHAP for explainable AI to identify key medical factors influencing predictions.
+    </p>
+  </div>
+</section>
+
+<!-- Certificates Section -->
+<section class="px-6 md:px-20 max-w-6xl mx-auto mb-20">
+  <div class="glass-card p-7" data-aos="fade-up">
+    <h2 class="text-3xl font-bold mb-6"><i class="fas fa-certificate text-blue-400 mr-2"></i>Certificates</h2>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fas fa-diploma text-blue-400"></i>
+        <span class="text-sm">Diploma in Human Resource Management | LPEC Campus</span>
+      </div>
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fab fa-cisco text-blue-400"></i>
+        <span class="text-sm">Network Basics | CISCO Networking Academy</span>
+      </div>
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fab fa-cisco text-blue-400"></i>
+        <span class="text-sm">Introduction to Cybersecurity | CISCO Networking Academy</span>
+      </div>
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fas fa-code text-purple-400"></i>
+        <span class="text-sm">Python for Beginners | University of Moratuwa</span>
+      </div>
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fab fa-cisco text-blue-400"></i>
+        <span class="text-sm">Introduction to IoT | CISCO Networking Academy</span>
+      </div>
+      <div class="flex items-center gap-2 bg-gray-800/40 p-3 rounded-xl border border-gray-700">
+        <i class="fab fa-dev text-purple-400"></i>
+        <span class="text-sm">Introduction to DevOps Tools | Simplilearn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience & Activities (timeline) -->
+<section class="py-12 px-6 md:px-20 max-w-6xl mx-auto">
+  <h2 class="text-4xl font-bold mb-12" data-aos="fade-right"><span class="border-b-4 border-blue-500 pb-2">Experience & Activities</span></h2>
+  <div class="grid md:grid-cols-1 gap-6 max-w-3xl">
+    <div class="timeline-item">
+      <span class="text-blue-300 font-medium">2022 Feb - Aug</span>
+      <h3 class="text-xl font-bold">Trainee – Bank of Ceylon</h3>
+    </div>
+    <div class="timeline-item">
+      <span class="text-blue-300 font-medium">2022 - Present</span>
+      <h3 class="text-xl font-bold">Member of Association of Technology IT, Rajarata University of Sri Lanka</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section with validation -->
+<section class="py-20 px-6 md:px-20 bg-[#0a0e17] light-mode:bg-slate-100" id="contact">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-10" data-aos="fade-right"><span class="border-b-4 border-purple-500 pb-2">Contact Me</span></h2>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="glass-card p-8" data-aos="fade-right">
+        <form id="contactForm" class="space-y-4">
+          <div><input type="text" placeholder="Your Name" class="w-full p-3 rounded-xl bg-gray-900/60 border border-gray-700 focus:border-blue-400 outline-none" required><div class="error-msg">Name required</div></div>
+          <div><input type="email" placeholder="Email" class="w-full p-3 rounded-xl bg-gray-900/60 border border-gray-700 focus:border-blue-400 outline-none" required><div class="error-msg">Valid email required</div></div>
+          <div><textarea placeholder="Message" rows="4" class="w-full p-3 rounded-xl bg-gray-900/60 border border-gray-700 focus:border-blue-400 outline-none" required></textarea><div class="error-msg">Message can't be empty</div></div>
+          <button type="submit" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-medium shadow-lg w-full">Send Message <i class="fas fa-paper-plane ml-2"></i></button>
+          <p class="text-green-400 text-sm hidden" id="formSuccess">✓ Message sent (demo)</p>
+        </form>
+      </div>
+      <div class="space-y-6 text-gray-300" data-aos="fade-left">
+        <p><i class="fas fa-envelope text-blue-400 w-8"></i> <a href="mailto:tharushisuraweera50@gmail.com" class="hover:underline">tharushisuraweera50@gmail.com</a></p>
+        <p><i class="fab fa-linkedin text-blue-400 w-8"></i> <a href="https://www.linkedin.com/in/tharushi-suraweera-023361259" target="_blank" class="hover:underline">linkedin.com/in/tharushi-suraweera-023361259</a></p>
+        <p><i class="fab fa-whatsapp text-green-400 w-8"></i> <a href="https://wa.me/94701740854" target="_blank" class="hover:underline">+94 70 174 0854 (WhatsApp)</a></p>
+        <p><i class="fas fa-map-marker-alt text-blue-400 w-8"></i> Welimada, Sri Lanka</p>
+        <div class="flex gap-6 pt-6 text-2xl">
+          <a href="https://github.com/TharushiSuraweera" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/tharushi-suraweera-023361259" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:tharushisuraweera50@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="text-sm text-gray-400 mt-2">Social: GitHub · LinkedIn · Email</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modern footer -->
+<footer class="border-t border-blue-900/30 py-8 text-center text-sm text-gray-500">
+  © 2026 Tharushi Suraweera — Network Engineer & Network Administrator.
+</footer>
+
+<!-- Scripts: AOS, particle, typing, theme toggle, form validation -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true, offset: 80 });
+  
+  // typing effect - shows Network Engineer and Network Administrator with "I'm a"
+  const titles = ["Network Engineer", "Network Administrator"];
+  let i = 0, j = 0, isDeleting = false;
+  function typeEffect() {
+    const current = titles[i];
+    document.getElementById('typing').innerText = current.substring(0, j);
+    if (!isDeleting && j < current.length) { j++; setTimeout(typeEffect, 100); }
+    else if (isDeleting && j > 0) { j--; setTimeout(typeEffect, 50); }
+    else {
+      isDeleting = !isDeleting;
+      if (!isDeleting) i = (i + 1) % titles.length;
+      setTimeout(typeEffect, 1500);
+    }
+  }
+  window.onload = () => { setTimeout(typeEffect, 300); };
+
+  // light/dark toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    if (document.body.classList.contains('light-mode')) {
+      icon.className = 'fas fa-moon';
+    } else { icon.className = 'fas fa-sun'; }
+  });
+
+  // simple particle canvas (subtle)
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  let particles = [];
+  for (let i=0; i<50; i++) { particles.push({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*2+1, dx: (Math.random()-0.5)*0.4, dy: (Math.random()-0.5)*0.2 }); }
+  function drawParticles() {
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#3b82f6';
+    particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fillStyle = 'rgba(100,150,255,0.3)'; ctx.fill(); p.x += p.dx; p.y += p.dy; if(p.x<0||p.x>w)p.dx*=-1; if(p.y<0||p.y>h)p.dy*=-1; });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // basic form validation demo
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = e.target.querySelectorAll('input,textarea');
+    let valid = true;
+    fields.forEach(f => { if (!f.checkValidity()) { f.classList.add('border-red-500'); valid = false; } else f.classList.remove('border-red-500'); });
+    if (valid) { document.getElementById('formSuccess').classList.remove('hidden'); setTimeout(()=>document.getElementById('formSuccess').classList.add('hidden'),3000); }
+  });
+</script>
+</body>
+</html>
